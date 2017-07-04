@@ -1,5 +1,6 @@
 package com.islxz.wechat.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.islxz.wechat.R;
+import com.islxz.wechat.activity.ChatActivity;
 import com.islxz.wechat.entity.Avert;
 
 import java.util.ArrayList;
@@ -30,7 +33,8 @@ public class WeChatFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_we_chat, null);
         bindID(view);
         initData();
@@ -92,18 +96,26 @@ public class WeChatFragment extends Fragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_we_chat, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_we_chat,
+                    parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.img.setImageResource(mAvertList.get(position).getImg());
             holder.name.setText(mAvertList.get(position).getName());
             holder.news.setText(mAvertList.get(position).getNews());
             holder.date.setText(mAvertList.get(position).getDate());
             if (!mAvertList.get(position).getDisturb())
                 holder.disture.setVisibility(View.INVISIBLE);
+            holder.rl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().startActivity(new Intent(getActivity(), ChatActivity.class).putExtra
+                            ("id", position));
+                }
+            });
         }
 
         @Override
@@ -112,6 +124,7 @@ public class WeChatFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
+            RelativeLayout rl;
             ImageView img;
             TextView name;
             TextView news;
@@ -120,6 +133,7 @@ public class WeChatFragment extends Fragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
+                rl = (RelativeLayout) itemView.findViewById(R.id.item_wc_rl);
                 img = (ImageView) itemView.findViewById(R.id.item_wc_img);
                 name = (TextView) itemView.findViewById(R.id.item_wc_name);
                 news = (TextView) itemView.findViewById(R.id.item_wc_news);

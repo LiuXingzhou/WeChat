@@ -7,6 +7,8 @@ import com.islxz.wechat.R;
 
 public class ChatActivity extends AppCompatActivity {
 
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
