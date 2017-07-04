@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3b3a3f</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="transparent_part">#50ffffff</color>
+    <color name="transparent_part2">#aaffffff</color>
+    <color name="hint_text">#999999</color>
+    <color name="background_color">#eeeff6</color>
+    <color name="hint_padding1">#33999999</color>
+    <color name="hint_padding2">#22999999</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="green">#45c01a</color>
+    <color name="actionBar">#3b3a3f</color>
+    <color name="toolbar">#f9f9f9</color>
+</resources>

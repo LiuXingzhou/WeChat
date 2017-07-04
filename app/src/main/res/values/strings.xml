@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">微信</string>
+    <string name="moments_text">朋友圈</string>
+    <string name="scan_qr_code_text">扫一扫</string>
+    <string name="shake_text">摇一摇</string>
+    <string name="people_nearby_text">附近的人</string>
+    <string name="games_text">游戏</string>
+    <string name="mini_programs_text">小程序</string>
+    <string name="wallet_text">钱包</string>
+    <string name="favorite_text">收藏</string>
+    <string name="album_text">相册</string>
+    <string name="cards_or_offers_text">卡包</string>
+    <string name="sticker_gallery_text">表情</string>
+    <string name="settings_text">设置</string>
+</resources>
