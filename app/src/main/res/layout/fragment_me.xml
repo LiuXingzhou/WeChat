@@ -111,6 +111,13 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
+        android:background="@color/hint_padding2"></View>
+
 
     <LinearLayout
         android:id="@+id/fg_m_ll4"
@@ -135,6 +142,13 @@
             android:textSize="@dimen/text_size_3"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
+        android:background="@color/hint_padding2"></View>
 
 
     <LinearLayout
@@ -161,6 +175,13 @@
 
     </LinearLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
+        android:background="@color/hint_padding2"></View>
 
     <LinearLayout
         android:id="@+id/fg_m_ll6"

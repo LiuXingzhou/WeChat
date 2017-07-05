@@ -1,6 +1,7 @@
 package com.islxz.wechat.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.islxz.wechat.R;
 import com.islxz.wechat.activity.ChatActivity;
 import com.islxz.wechat.entity.Avert;
+import com.islxz.wechat.util.DensityUtils;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +36,7 @@ import java.util.List;
 
 public class WeChatFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    private SwipeMenuRecyclerView mSwipeMenuRecyclerView;
 
     private List<Avert> mAvertList;
     private MyAdapter mMyAdapter;
@@ -38,9 +48,11 @@ public class WeChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_we_chat, null);
         bindID(view);
         initData();
+        mSwipeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mSwipeMenuRecyclerView.setSwipeMenuCreator(swipeMuenCreator);
+        mSwipeMenuRecyclerView.setSwipeMenuItemClickListener(menuItemClickListener);
         mMyAdapter = new MyAdapter();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mMyAdapter);
+        mSwipeMenuRecyclerView.setAdapter(mMyAdapter);
         return view;
     }
 
@@ -89,26 +101,91 @@ public class WeChatFragment extends Fragment {
     }
 
     private void bindID(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.fg_wc_rl);
+        mSwipeMenuRecyclerView = (SwipeMenuRecyclerView) view.findViewById(R.id.fg_wc_rl);
     }
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    /*
+    菜单创建器
+     */
+    private SwipeMenuCreator swipeMuenCreator = new SwipeMenuCreator() {
+        @Override
+        public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
+
+            // MATCH_PARENT 自适应高度，保持和内容一样高；也可以指定菜单具体高度，也可以用WRAP_CONTENT。
+            int height = DensityUtils.dp2px(getActivity(), 66);
+
+            // 添加右侧的，如果不添加，则右侧不会出现菜单。
+            {
+                SwipeMenuItem addItem = new SwipeMenuItem(getActivity())
+                        .setBackgroundDrawable(R.drawable.selector_huise)
+                        .setText("标为未读")
+                        .setTextColor(Color.WHITE)
+                        .setWidth(DensityUtils.dp2px(getActivity(), 100))
+                        .setHeight(height);
+                swipeRightMenu.addMenuItem(addItem); // 添加一个按钮到右侧菜单。
+
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity())
+                        .setBackgroundDrawable(R.drawable.selector_red)
+                        .setText("删除") // 文字，还可以设置文字颜色，大小等。。
+                        .setTextColor(Color.WHITE)
+                        .setWidth(DensityUtils.dp2px(getActivity(), 70))
+                        .setHeight(height);
+                swipeRightMenu.addMenuItem(deleteItem);// 添加一个按钮到右侧侧菜单。
+
+            }
+
+        }
+    };
+
+    /**
+     * 菜单点击监听。
+     */
+    private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
+        /**
+         * Item的菜单被点击的时候调用。
+         * @param closeable       closeable. 用来关闭菜单。
+         * @param adapterPosition adapterPosition. 这个菜单所在的item在Adapter中position。
+         * @param menuPosition    menuPosition. 这个菜单的position。比如你为某个Item创建了2个MenuItem，那么这个position可能是是
+         *                        0、1，
+         * @param direction
+         * 如果是左侧菜单，值是：SwipeMenuRecyclerView#LEFT_DIRECTION，如果是右侧菜单，值是：SwipeMenuRecyclerView
+         *                        #RIGHT_DIRECTION.
+         */
+        @Override
+        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int
+                direction) {
+            closeable.smoothCloseMenu();// 关闭被点击的菜单。
+
+
+            // TODO 如果是删除：推荐调用Adapter.notifyItemRemoved(position)，不推荐Adapter.notifyDataSetChanged();
+            if (menuPosition == 0) {//标为未读
+                Toast.makeText(getActivity(), "标为未读", Toast.LENGTH_SHORT).show();
+            } else if (menuPosition == 1) {// 删除按钮被点击。
+                mAvertList.remove(adapterPosition);
+                mMyAdapter.notifyDataSetChanged();
+            }
+        }
+
+    };
+
+    /*
+    适配器
+     */
+    public class MyAdapter extends SwipeMenuAdapter<MyAdapter.ViewHolder> {
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_we_chat,
-                    parent, false);
-            return new ViewHolder(view);
+        public View onCreateContentView(ViewGroup parent, int viewType) {
+            return LayoutInflater.from(getActivity()).inflate(R.layout.item_we_chat, parent, false);
+        }
+
+        @Override
+        public ViewHolder onCompatCreateViewHolder(View realContentView, int viewType) {
+            ViewHolder viewHolder = new ViewHolder(realContentView);
+            return viewHolder;
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.img.setImageResource(mAvertList.get(position).getImg());
-            holder.name.setText(mAvertList.get(position).getName());
-            holder.news.setText(mAvertList.get(position).getNews());
-            holder.date.setText(mAvertList.get(position).getDate());
-            if (!mAvertList.get(position).getDisturb())
-                holder.disture.setVisibility(View.INVISIBLE);
             holder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -116,11 +193,12 @@ public class WeChatFragment extends Fragment {
                             ("id", position));
                 }
             });
+            holder.setData(mAvertList.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return mAvertList.size();
+            return mAvertList == null ? 0 : mAvertList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -139,6 +217,15 @@ public class WeChatFragment extends Fragment {
                 news = (TextView) itemView.findViewById(R.id.item_wc_news);
                 date = (TextView) itemView.findViewById(R.id.item_wc_date);
                 disture = (ImageView) itemView.findViewById(R.id.item_wc_disturb);
+            }
+
+            public void setData(Avert avert) {
+                img.setImageResource(avert.getImg());
+                name.setText(avert.getName());
+                news.setText(avert.getNews());
+                date.setText(avert.getDate());
+                if (avert.getDisturb())
+                    disture.setVisibility(View.VISIBLE);
             }
         }
     }

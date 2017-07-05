@@ -12,4 +12,11 @@
     <string name="cards_or_offers_text">卡包</string>
     <string name="sticker_gallery_text">表情</string>
     <string name="settings_text">设置</string>
+    <string name="hold_to_talk_text">按住说话</string>
+    <string name="use_camera_text">相机</string>
+    <string name="video_call_text">视频通话</string>
+    <string name="location_text">定位</string>
+    <string name="red_packet_text">红包</string>
+    <string name="transfer_text">转账</string>
+    <string name="contact_card_text">名片</string>
 </resources>

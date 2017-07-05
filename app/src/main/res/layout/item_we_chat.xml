@@ -74,7 +74,8 @@
             android:layout_height="0dp"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:src="@drawable/icon_disturb1"/>
+            android:src="@drawable/icon_disturb1"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

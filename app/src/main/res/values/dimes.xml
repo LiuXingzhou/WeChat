@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding">20dp</dimen>
+    <dimen name="padding2">10dp</dimen>
 
     <dimen name="text_size_1">20sp</dimen>
     <dimen name="text_size_2">18sp</dimen>
     <dimen name="text_size_3">16sp</dimen>
     <dimen name="text_size_4">14sp</dimen>
     <dimen name="text_size_5">13sp</dimen>
+    <dimen name="text_size_6">11sp</dimen>
+
+    <dimen name="item_height">60dp</dimen>
+
 </resources>
