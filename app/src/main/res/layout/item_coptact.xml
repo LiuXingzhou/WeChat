@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:background="@color/white"
+              android:orientation="horizontal"
+              android:paddingLeft="5dp">
+
+    <ImageView
+        android:id="@+id/item_contact_img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="7.5dp"
+        android:src="@drawable/avert"/>
+
+    <TextView
+        android:id="@+id/item_contact_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_3"
+        tools:text="安徽"/>
+
+</LinearLayout>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="contacts">
+        <item>A       强 Boss  </item>
+        <item>A资源总代（诚招代理）</item>
+        <item>陈磊</item>
+        <item>大妗子</item>
+        <item>大米</item>
+        <item>大千</item>
+        <item>大太阳</item>
+        <item>段琼</item>
+        <item>文件传输助手</item>
+        <item>方二二 </item>
+        <item>方欣茹</item>
+        <item>风清明</item>
+        <item>风清明</item>
+        <item>风衍</item>
+        <item>韩斌~13173019697</item>
+        <item>哼唧</item>
+        <item>后 生。</item>
+        <item>侯云凤</item>
+        <item>鲸落</item>
+        <item>镜子</item>
+        <item>鞠呵呵</item>
+        <item>圈圈</item>
+        <item>冷！！！</item>
+        <item>璃安</item>
+        <item>刘长龙</item>
+        <item>刘瑶瑶</item>
+        <item>* 路ё人 *</item>
+        <item>LX</item>
+        <item>马君悦</item>
+        <item>妹</item>
+        <item>没王就别放单</item>
+        <item>茉莉</item>
+        <item>幕暖</item>
+        <item>南鲁博</item>
+        <item>暖初    </item>
+        <item>╰女人筎埖埖筎梦ヅ</item>
+        <item>P_c</item>
+        <item>缘爱</item>
+        <item>是Jacky呵。</item>
+        <item>时侍</item>
+        <item>水红</item>
+        <item>张芹</item>
+        <item>长青</item>
+        <item>孙家英</item>
+        <item>娃哈哈</item>
+        <item>洋</item>
+        <item>忘川</item>
+        <item>王小胖儿</item>
+        <item>部落格机器人</item>
+        <item>王高瑞</item>
+        <item>捕捉一只Moe晴</item>
+        <item>！！！</item>
+        <item>韦德</item>
+        <item>委鬼</item>
+        <item>无非尘心。</item>
+        <item>即墨土特产代购</item>
+        <item>泽东</item>
+        <item>小霍</item>
+        <item>小米</item>
+        <item>~小乐~</item>
+        <item>丅一詀垨候</item>
+        <item>Jeff</item>
+        <item>南风℡过境</item>
+        <item>小孩儿</item>
+        <item>尹风衍</item>
+        <item>元寶</item>
+        <item>遇见、</item>
+        <item>于小鱼</item>
+        <item>再不伸手的猫啊猫</item>
+        <item>ZF</item>
+        <item>张高峰13361090429</item>
+        <item>小小莲</item>
+        <item>半の白</item>
+        <item>张庆仕18405410000</item>
+        <item>雨天</item>
+        <item>若溪</item>
+        <item>赵东</item>
+        <item>Alice的52Hz</item>
+        <item>知足常乐 ------玥儿</item>
+        <item>ξ</item>
+        <item>ପ小卡ଓ🦄咨询先翻朋友圈</item>
+    </string-array>
+
+    <!--<integer-array name="contacts_img">-->
+    <!--<item>@drawable/img_1</item>-->
+    <!--<item>@drawable/img_2</item>-->
+    <!--<item>@drawable/img_3</item>-->
+    <!--<item>@drawable/avert</item>-->
+    <!--<item>@drawable/img_5</item>-->
+    <!--<item>@drawable/img_6</item>-->
+    <!--<item>@drawable/img_7</item>-->
+    <!--<item>@drawable/avert</item>-->
+    <!--<item>@drawable/img_8</item>-->
+    <!--<item>@drawable/img_9</item>-->
+    <!--<item>@drawable/img_10</item>-->
+    <!--<item>@drawable/avert</item>-->
+    <!--<item>@drawable/avert_self</item>-->
+    <!--<item>@drawable/img_12</item>-->
+    <!--<item>@drawable/img_13</item>-->
+    <!--<item>@drawable/img_14</item>-->
+    <!--<item>@drawable/img_15</item>-->
+    <!--<item>@drawable/img_16</item>-->
+    <!--<item>@drawable/img_17</item>-->
+    <!--<item>@drawable/img_18</item>-->
+    <!--<item>@drawable/img_19</item>-->
+    <!--<item>@drawable/img_20</item>-->
+    <!--<item>@drawable/img_21</item>-->
+    <!--<item>@drawable/img_22</item>-->
+    <!--<item>@drawable/img_23</item>-->
+    <!--<item>@drawable/img_24</item>-->
+    <!--<item>@drawable/img_25</item>-->
+    <!--<item>@drawable/img_26</item>-->
+    <!--<item>@drawable/img_27</item>-->
+    <!--<item>@drawable/img_28</item>-->
+    <!--<item>@drawable/img_29</item>-->
+    <!--<item>@drawable/img_30</item>-->
+    <!--<item>@drawable/img_31</item>-->
+    <!--<item>@drawable/img_32</item>-->
+    <!--<item>@drawable/img_33</item>-->
+    <!--<item>@drawable/img_34</item>-->
+    <!--<item>@drawable/img_35</item>-->
+    <!--<item>@drawable/img_36</item>-->
+    <!--<item>@drawable/img_37</item>-->
+    <!--<item>@drawable/img_38</item>-->
+    <!--<item>@drawable/img_39</item>-->
+    <!--<item>@drawable/img_40</item>-->
+    <!--<item>@drawable/img_41</item>-->
+    <!--<item>@drawable/img_42</item>-->
+    <!--<item>@drawable/img_43</item>-->
+    <!--<item>@drawable/img_44</item>-->
+    <!--<item>@drawable/img_45</item>-->
+    <!--<item>@drawable/img_46</item>-->
+    <!--<item>@drawable/img_47</item>-->
+    <!--<item>@drawable/img_48</item>-->
+    <!--<item>@drawable/img_49</item>-->
+    <!--<item>@drawable/img_50</item>-->
+    <!--<item>@drawable/img_51</item>-->
+    <!--<item>@drawable/img_52</item>-->
+    <!--<item>@drawable/img_53</item>-->
+    <!--<item>@drawable/img_54</item>-->
+    <!--<item>@drawable/img_55</item>-->
+    <!--<item>@drawable/img_56</item>-->
+    <!--<item>@drawable/img_57</item>-->
+    <!--<item>@drawable/img_58</item>-->
+    <!--<item>@drawable/img_59</item>-->
+    <!--<item>@drawable/img_60</item>-->
+    <!--<item>@drawable/img_61</item>-->
+    <!--<item>@drawable/img_62</item>-->
+    <!--<item>@drawable/img_63</item>-->
+    <!--<item>@drawable/img_64</item>-->
+    <!--<item>@drawable/img_65</item>-->
+    <!--<item>@drawable/img_66</item>-->
+    <!--<item>@drawable/img_67</item>-->
+    <!--<item>@drawable/img_68</item>-->
+    <!--<item>@drawable/img_69</item>-->
+    <!--<item>@drawable/img_70</item>-->
+    <!--<item>@drawable/img_71</item>-->
+    <!--<item>@drawable/img_72</item>-->
+    <!--<item>@drawable/img_73</item>-->
+    <!--<item>@drawable/img_74</item>-->
+    <!--<item>@drawable/img_75</item>-->
+    <!--<item>@drawable/img_76</item>-->
+    <!--<item>@drawable/img_77</item>-->
+    <!--<item>@drawable/img_78</item>-->
+    <!--<item>@drawable/img_79</item>-->
+    <!--</integer-array>-->
+
+
+</resources>
