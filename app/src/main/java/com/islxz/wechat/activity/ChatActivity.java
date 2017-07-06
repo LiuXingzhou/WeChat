@@ -2,9 +2,11 @@ package com.islxz.wechat.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,90 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.islxz.wechat.R;
 import com.islxz.wechat.entity.News;
+import com.turing.androidsdk.HttpRequestListener;
+import com.turing.androidsdk.TuringManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final String TAG = MainActivity.class.getSimpleName();
+
+    private TuringManager mTuringManager;
+
+    /**
+     * 返回结果，开始说话
+     */
+    public static final int MSG_SPEECH_START = 0;
+    /**
+     * 开始识别
+     */
+    public static final int MSG_RECOGNIZE_RESULT = 1;
+    /**
+     * 开始识别
+     */
+    public static final int MSG_RECOGNIZE_START = 2;
+
+    private final String TURING_APIURL = "http://www.tuling123.com/openapi/api/";
+    private final String TURING_APIKEY = "4a05b5e04de0487fadeb26b556d97481";
+    private final String TURING_SECRET = "ea226f35bc7fdbe2";
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case MSG_SPEECH_START:
+                    String news = (String) msg.obj;
+                    News news1;
+                    switch (id) {
+                        case 0:
+                            news1 = new News(false, "订阅号", R.drawable.avert_dingyuehao,
+                                    news);
+                            mNewses.add(news1);
+                            break;
+                        case 1:
+                            news1 = new News(false, "遇见、", R.drawable.avert_yujian, news);
+                            mNewses.add(news1);
+                            break;
+                        case 2:
+                            news1 = new News(false, "家家悦", R.drawable.avert_jiajiayue, news);
+                            mNewses.add(news1);
+                            break;
+                        case 3:
+                            news1 = new News(false, "中国建设银行", R.drawable.avert_jianhang, news);
+                            mNewses.add(news1);
+                            break;
+                        case 4:
+                            news1 = new News(false, "山东劳动职业技术学院一卡通", R.drawable.avert_ljyikatong, news);
+                            mNewses.add(news1);
+                            break;
+                    }
+                    mBaseAdapter.notifyDataSetChanged();
+                    mListView.smoothScrollToPosition(mNewses.size() - 1);
+//                    mStatus.setText("开始讲话：" + (String) msg.obj);
+//                    mTtsManager.startTTS((String) msg.obj);
+                    break;
+                case MSG_RECOGNIZE_RESULT:
+//                    mStatus.setText("识别结果：" + msg.obj);
+                    mTuringManager.requestTuring((String) msg.obj);
+                    break;
+                case MSG_RECOGNIZE_START:
+//                    mStatus.setText("开始识别");
+//                    mRecognizerManager.startRecognize();
+                    break;
+            }
+        }
+
+        ;
+    };
+
 
     private int id;
     private int counts = 0;
@@ -126,7 +204,43 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+        initTuring();
     }
+
+    /**
+     * 初始化图灵SDK
+     */
+    private void initTuring() {
+        mTuringManager = new TuringManager(this, TURING_APIKEY, TURING_SECRET);
+        mTuringManager.setHttpRequestListener(mHttpRequestListener);
+    }
+
+    /**
+     * 网络回调请求
+     */
+    HttpRequestListener mHttpRequestListener = new HttpRequestListener() {
+        @Override
+        public void onSuccess(String result) {
+            if (result != null) {
+                try {
+                    Log.d(TAG, "result" + result);
+                    JSONObject result_obj = new JSONObject(result);
+                    if (result_obj.has("text")) {
+                        Log.d(TAG, result_obj.get("text").toString());
+                        mHandler.obtainMessage(MSG_SPEECH_START,
+                                result_obj.get("text")).sendToTarget();
+                    }
+                } catch (JSONException e) {
+                    Log.d(TAG, "JSONException:" + e.getMessage());
+                }
+            }
+        }
+
+        @Override
+        public void onFail(int i, String s) {
+            Toast.makeText(ChatActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     /**
      * 初始化数据
@@ -159,13 +273,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 3:
                 news1 = new News(false, "中国建设银行", R.drawable.avert_jianhang, "您好，感谢您关注中国建设银行官方微信");
-                news2 = new News(true, "风清明", R.drawable.avert_self, "业务介绍");
-                news3 = new News(false, "中国建设银行", R.drawable.avert_jianhang,
-                        "您想问的是这些问题吗？请回复序号：\n[1]“金管家”业务的功能\n[2]什么是建行易存金业务\n[3]什么是定活两便\n[4]什么是银星速汇业务\n[5" +
-                                "]什么是亲亲账户套餐");
                 mNewses.add(news1);
-                mNewses.add(news2);
-                mNewses.add(news3);
                 break;
             case 4:
                 news1 = new News(false, "山东劳动职业技术学院一卡通", R.drawable.avert_ljyikatong,
@@ -225,6 +333,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.chat_tb_more:
                 mInputEdit.setFocusable(false);
                 if (counts > 0) {
+                    mHandler.obtainMessage(MSG_RECOGNIZE_RESULT, mInputEdit.getText().toString())
+                            .sendToTarget();
                     News news = new News(true, "风清明", R.drawable.avert_self, mInputEdit.getText()
                             .toString());
                     mNewses.add(news);
