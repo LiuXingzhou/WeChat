@@ -1,16 +1,11 @@
 package com.islxz.wechat.activity;
 
-import android.graphics.Color;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,12 +19,11 @@ import com.islxz.wechat.fragment.DiscoverFragment;
 import com.islxz.wechat.fragment.MeFragment;
 import com.islxz.wechat.fragment.WeChatFragment;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTitleTv;
     private ImageButton mAbIBtn;
+    private ImageButton mSearchBtn;
     private FrameLayout mFrameLayout;
     private LinearLayout mT1;
     private ImageView mT1Img;
@@ -80,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mAbIBtn.setVisibility(View.VISIBLE);
                 mTitleTv.setText("微信");
                 mAbIBtn.setImageResource(R.drawable.add);
+                mSearchBtn.setVisibility(View.VISIBLE);
                 mT1Img.setImageResource(R.drawable.icon_wechat_select);
                 mT1Tv.setTextColor(ContextCompat.getColor(this, R.color.green));
                 if (mWeChatFragment == null)
@@ -90,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mAbIBtn.setVisibility(View.VISIBLE);
                 mTitleTv.setText("通讯录");
                 mAbIBtn.setImageResource(R.drawable.add_contacts);
+                mSearchBtn.setVisibility(View.VISIBLE);
                 mT2Img.setImageResource(R.drawable.icon_contacts_select);
                 mT2Tv.setTextColor(ContextCompat.getColor(this, R.color.green));
                 if (mContactsFragment == null)
@@ -98,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 3:
                 mAbIBtn.setVisibility(View.INVISIBLE);
+                mSearchBtn.setVisibility(View.INVISIBLE);
                 mTitleTv.setText("发现");
                 mT3Img.setImageResource(R.drawable.icon_discover_select);
                 mT3Tv.setTextColor(ContextCompat.getColor(this, R.color.green));
@@ -107,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 4:
                 mAbIBtn.setVisibility(View.INVISIBLE);
+                mSearchBtn.setVisibility(View.INVISIBLE);
                 mTitleTv.setText("我");
                 mT4Img.setImageResource(R.drawable.icon_me_select);
                 mT4Tv.setTextColor(ContextCompat.getColor(this, R.color.green));
@@ -122,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTitleTv = (TextView) findViewById(R.id.main_ab_tv);
         mAbIBtn = (ImageButton) findViewById(R.id.main_ab_ibtn);
         mAbIBtn.setOnClickListener(this);
+        mSearchBtn = (ImageButton) findViewById(R.id.main_ab_search);
+        mSearchBtn.setOnClickListener(this);
         mFrameLayout = (FrameLayout) findViewById(R.id.main_fl);
         mT1 = (LinearLayout) findViewById(R.id.main_t1);
         mT1.setOnClickListener(this);
@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (item == 2) {
                     Toast.makeText(this, "添加联系人", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.main_ab_search:
+                Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.main_t1:
                 checkFragment(1);

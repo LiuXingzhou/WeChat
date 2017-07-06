@@ -1,5 +1,6 @@
 package com.islxz.wechat.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +31,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private int counts = 0;
 
     private boolean input = true;
+    private boolean ll1 = false;
     private boolean ll2 = false;
 
+    private RelativeLayout mContent;
     private ImageButton mBack;
     private TextView mName;
     private ListView mListView;
@@ -39,6 +43,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private Button mHoldTalkBtn;
     private ImageButton mEmojiBtn;
     private ImageButton mMoreBtn;
+    private RelativeLayout mLL1;
     private LinearLayout mLL2;
 
     private List<News> mNewses;
@@ -111,8 +116,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        mInputEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {//获得焦点
+                    checkLL(0);
+                } else {//失去焦点
+
+                }
+            }
+        });
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
         mNewses = new ArrayList<>();
         News news1;
@@ -128,25 +146,23 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 mNewses.add(news3);
                 break;
             case 1:
-                news1 = new News(false, "遇见、", R.drawable.avert_yujian, "您好，感谢您关注家家悦集团官方微信");
-                news2 = new News(true, "风清明", R.drawable.avert_self, "早啊");
-                news3 = new News(false, "遇见、", R.drawable.avert_yujian, "早上好");
+                news1 = new News(false, "遇见、", R.drawable.avert_yujian, "好夢喲");
+                news2 = new News(false, "遇见、", R.drawable.avert_yujian, "早呀新兒");
+                news3 = new News(true, "风清明", R.drawable.avert_self, "不早了");
                 mNewses.add(news1);
                 mNewses.add(news2);
                 mNewses.add(news3);
                 break;
             case 2:
                 news1 = new News(false, "家家悦", R.drawable.avert_jiajiayue, "您好，感谢您关注家家悦集团官方微信");
-                news2 = new News(true, "风清明", R.drawable.avert_self, "早啊");
-                news3 = new News(false, "家家悦", R.drawable.avert_jiajiayue, "早上好");
                 mNewses.add(news1);
-                mNewses.add(news2);
-                mNewses.add(news3);
                 break;
             case 3:
-                news1 = new News(false, "中国建设银行", R.drawable.avert_jianhang, "您好，感谢您关注家家悦集团官方微信");
-                news2 = new News(true, "风清明", R.drawable.avert_self, "早啊");
-                news3 = new News(false, "中国建设银行", R.drawable.avert_jianhang, "早上好");
+                news1 = new News(false, "中国建设银行", R.drawable.avert_jianhang, "您好，感谢您关注中国建设银行官方微信");
+                news2 = new News(true, "风清明", R.drawable.avert_self, "业务介绍");
+                news3 = new News(false, "中国建设银行", R.drawable.avert_jianhang,
+                        "您想问的是这些问题吗？请回复序号：\n[1]“金管家”业务的功能\n[2]什么是建行易存金业务\n[3]什么是定活两便\n[4]什么是银星速汇业务\n[5" +
+                                "]什么是亲亲账户套餐");
                 mNewses.add(news1);
                 mNewses.add(news2);
                 mNewses.add(news3);
@@ -159,7 +175,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 绑定ID
+     */
     private void bindID() {
+        mContent = (RelativeLayout) findViewById(R.id.chat);
         mBack = (ImageButton) findViewById(R.id.chat_pre);
         mBack.setOnClickListener(this);
         mName = (TextView) findViewById(R.id.chat_name);
@@ -167,17 +187,29 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mLeftBtn = (ImageButton) findViewById(R.id.chat_tb_left);
         mLeftBtn.setOnClickListener(this);
         mInputEdit = (EditText) findViewById(R.id.chat_tb_input);
+        mInputEdit.setOnClickListener(this);
         mHoldTalkBtn = (Button) findViewById(R.id.chat_tb_hold_talk);
         mHoldTalkBtn.setOnClickListener(this);
         mEmojiBtn = (ImageButton) findViewById(R.id.chat_tb_emoji);
+        mEmojiBtn.setOnClickListener(this);
         mMoreBtn = (ImageButton) findViewById(R.id.chat_tb_more);
         mMoreBtn.setOnClickListener(this);
+        mLL1 = (RelativeLayout) findViewById(R.id.chat_tb_ll1);
         mLL2 = (LinearLayout) findViewById(R.id.chat_tb_ll2);
     }
 
+    /**
+     * 监听事件
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.chat_tb_input:
+//                mInputEdit.requestFocus();
+//                mInputEdit.findFocus();
+                break;
             case R.id.chat_pre:
                 finish();
                 break;
@@ -185,8 +217,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 checkInput();
                 break;
             case R.id.chat_tb_emoji:
+                mInputEdit.setFocusable(false);
+                checkLL(1);
+                mInputEdit.setFocusable(true);
+                mInputEdit.setFocusableInTouchMode(true);
                 break;
             case R.id.chat_tb_more:
+                mInputEdit.setFocusable(false);
                 if (counts > 0) {
                     News news = new News(true, "风清明", R.drawable.avert_self, mInputEdit.getText()
                             .toString());
@@ -194,12 +231,18 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     mInputEdit.setText("");
                     mBaseAdapter.notifyDataSetChanged();
                     mListView.smoothScrollToPosition(mNewses.size() - 1);
-                } else
-                    checkLL2();
+                } else {
+                    checkLL(2);
+                }
+                mInputEdit.setFocusable(true);
+                mInputEdit.setFocusableInTouchMode(true);
                 break;
         }
     }
 
+    /**
+     * 切换文字输入与语音输入
+     */
     private void checkInput() {
         if (input) {
             mInputEdit.setVisibility(View.GONE);
@@ -214,14 +257,75 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void checkLL2() {
-        if (ll2) {
-            mLL2.setVisibility(View.VISIBLE);
-            ll2 = false;
-        } else {
+    /**
+     * 底部弹出框及输入法隐藏显示切换
+     *
+     * @param arg0
+     */
+    private void checkLL(int arg0) {
+        if (arg0 == 0) {//关闭
+            mLL1.setVisibility(View.GONE);
+            ll1 = false;
             mLL2.setVisibility(View.GONE);
-            ll2 = true;
+            ll2 = false;
+        } else if (arg0 == 1) {//emoji
+            if (ll1) {
+                mLL1.setVisibility(View.GONE);
+                ll1 = false;
+                return;
+            }
+            if (ll2) {
+                if (getSoftInputStatus())
+                    hideSofrInput();
+                mLL2.setVisibility(View.GONE);
+                ll2 = false;
+                mLL1.setVisibility(View.VISIBLE);
+                ll1 = true;
+                return;
+            } else {
+                if (getSoftInputStatus())
+                    hideSofrInput();
+                mLL1.setVisibility(View.VISIBLE);
+                ll1 = true;
+            }
+        } else if (arg0 == 2) {//more
+            if (ll2) {
+                mLL2.setVisibility(View.GONE);
+                ll2 = false;
+                return;
+            }
+            if (ll1) {
+                if (getSoftInputStatus())
+                    hideSofrInput();
+                mLL1.setVisibility(View.GONE);
+                ll1 = false;
+                mLL2.setVisibility(View.VISIBLE);
+                ll2 = true;
+                return;
+            } else {
+                if (getSoftInputStatus())
+                    hideSofrInput();
+                mLL2.setVisibility(View.VISIBLE);
+                ll2 = true;
+            }
         }
+    }
+
+    /**
+     * 获取输入法弹出或隐藏状态
+     *
+     * @return
+     */
+    private boolean getSoftInputStatus() {
+        return ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).isActive();
+    }
+
+    /**
+     * 隐藏输入法
+     */
+    private void hideSofrInput() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow
+                (this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 }

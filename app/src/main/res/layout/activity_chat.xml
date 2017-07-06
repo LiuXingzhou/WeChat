@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.islxz.wechat.activity.ChatActivity">
@@ -147,6 +148,75 @@
                 android:background="@color/hint_padding1"></View>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/chat_tb_ll1"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include
+                layout="@layout/item_emoji"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_above="@+id/chat_tb_ll1_rl">
+            </include>
+
+            <RelativeLayout
+                android:id="@id/chat_tb_ll1_rl"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignParentBottom="true">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/hint_text"></View>
+
+                <ImageButton
+                    android:id="@+id/chat_tb_ll1_i1"
+                    android:layout_width="55dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/emoji_background"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emoji_add"/>
+
+                <ImageButton
+                    android:id="@+id/chat_tb_ll1_i2"
+                    android:layout_width="55dp"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/chat_tb_ll1_i1"
+                    android:background="@drawable/emoji_background_select"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emoji"/>
+
+                <ImageButton
+                    android:id="@+id/chat_tb_ll1_i3"
+                    android:layout_width="55dp"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/chat_tb_ll1_i2"
+                    android:background="@drawable/emoji_background"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emoji_favorite"/>
+
+                <ImageButton
+                    android:id="@+id/chat_tb_ll1_i4"
+                    android:layout_width="55dp"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@id/chat_tb_ll1_i3"
+                    android:background="@drawable/emoji_background"
+                    android:padding="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/emoji_settings"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/chat_tb_ll2"
